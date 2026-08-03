@@ -1,0 +1,36 @@
+{
+  "plugins": {
+    "blink.cmp": {
+      "rev": "005f8c859997f40f65bfbec5f4b400c45fecc06a",
+      "src": "https://github.com/saghen/blink.cmp"
+    },
+    "blink.lib": {
+      "rev": "8b04d0e0acc8565cfa4dd291a89a9212b7262633",
+      "src": "https://github.com/saghen/blink.lib"
+    },
+    "catppuccin": {
+      "rev": "79e2049a0fdf7ec840f8463fe1d962c94493196b",
+      "src": "https://github.com/catppuccin/nvim"
+    },
+    "lsp-format.nvim": {
+      "rev": "e2b4ae87545c1aadebcf1dfc1b5dffe28dcf2ffb",
+      "src": "https://github.com/lukas-reineke/lsp-format.nvim"
+    },
+    "mason-lspconfig.nvim": {
+      "rev": "67029ccdac1ef8941e13b826417bc0ffac24cc86",
+      "src": "https://github.com/mason-org/mason-lspconfig.nvim"
+    },
+    "mason.nvim": {
+      "rev": "2a6940af80375532e5e9e7c1f2fc6319a1b7a69d",
+      "src": "https://github.com/mason-org/mason.nvim"
+    },
+    "nvim": {
+      "rev": "79e2049a0fdf7ec840f8463fe1d962c94493196b",
+      "src": "https://github.com/catppuccin/nvim"
+    },
+    "nvim-lspconfig": {
+      "rev": "1c0d8f70dbc8827263eedc3cf7021ceba0f68689",
+      "src": "https://github.com/neovim/nvim-lspconfig"
+    }
+  }
+}
