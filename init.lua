@@ -5,6 +5,30 @@ vim.opt.wrap = false
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+vim.cmd("filetype plugin indent on")
+
+vim.opt.expandtab = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 4
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "html", "css", "javascript", "typescript", "json", "yaml", "lua" },
+  callback = function()
+    vim.opt_local.tabstop = 2
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.softtabstop = 2
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "c", "cpp" },
+  callback = function()
+    vim.opt_local.cindent = true
+    vim.opt_local.cinoptions = "g0,j1,(0"
+  end,
+})
+
 local config_lua_dir = vim.fn.stdpath("config") .. "/lua"
 
 -- Import lua modules.
