@@ -16,10 +16,13 @@ local plugins_url = {
 	"https://github.com/nvim-treesitter/nvim-treesitter",
   -- go to definition
   "https://github.com/rmagatti/goto-preview",
+  "https://github.com/nvimdev/lspsaga.nvim",
   -- pair
   "https://github.com/nvim-mini/mini.pairs",
   -- indent
   "https://github.com/saghen/blink.indent",
+  -- gitsigns
+  "https://github.com/lewis6991/gitsigns.nvim",
 }
 
 for _, plugins_link in ipairs(plugins_url) do
@@ -79,6 +82,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		if not client then return end
 		-- inlayHint.
 		pcall(vim.lsp.inlay_hint.enable, true, { bufnr = ev.buf })
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, { desc = 'Go to definition', buffer = ev.buf })
 	end,
 })
 
@@ -244,3 +248,9 @@ require('blink.indent').setup({
     },
   },
 })
+
+-- lspsaga
+require("lspsaga").setup({})
+
+-- gitsigns
+require('gitsigns').setup {}
