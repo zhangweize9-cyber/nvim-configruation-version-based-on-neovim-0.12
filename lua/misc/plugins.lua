@@ -1,6 +1,10 @@
 local plugins_url = {
 	-- colorscheme
 	"https://github.com/catppuccin/nvim",
+  "https://github.com/MunifTanjim/nui.nvim",
+  "https://github.com/nvim-tree/nvim-web-devicons",
+  -- plenary
+	"https://github.com/nvim-lua/plenary.nvim",
   -- telescope
   "https://github.com/nvim-telescope/telescope.nvim",
 	-- lsp client
@@ -23,6 +27,16 @@ local plugins_url = {
   "https://github.com/saghen/blink.indent",
   -- gitsigns
   "https://github.com/lewis6991/gitsigns.nvim",
+  -- todo-comments.nvim
+  "https://github.com/folke/todo-comments.nvim",
+  -- toggleterm
+  "https://github.com/akinsho/toggleterm.nvim",
+  -- neotree
+  "https://github.com/nvim-neo-tree/neo-tree.nvim",
+  -- edgy
+  "https://github.com/folke/edgy.nvim",
+  -- windows
+  "https://github.com/nvim-zh/colorful-winsep.nvim",
 }
 
 for _, plugins_link in ipairs(plugins_url) do
@@ -254,3 +268,30 @@ require("lspsaga").setup({})
 
 -- gitsigns
 require('gitsigns').setup {}
+
+-- todo-comments
+require('todo-comments').setup {}
+
+vim.keymap.set("n", "]t", function()
+  require("todo-comments").jump_next()
+end, { desc = "Next todo comment" })
+
+vim.keymap.set("n", "[t", function()
+  require("todo-comments").jump_prev()
+end, { desc = "Previous todo comment" })
+
+-- toggleterm & neotree
+require('neo-tree').setup({})
+vim.keymap.set("n", "<leader>t", "<cmd>Neotree<cr>")
+require("toggleterm").setup{}
+vim.keymap.set("n", "<leader>ot", "<cmd>ToggleTerm size=10 direction=horizontal name=desktop<cr>")
+
+-- edgy
+require('edgy').setup({
+  left = {
+    { ft = "neo-tree", title = "Neo-Tree", filter = function(buf) return vim.b[buf].neo_tree_source == "filesystem" end },
+  },
+})
+
+-- windows
+require("colorful-winsep").setup({})
