@@ -93,8 +93,25 @@ vim.lsp.config["lua_ls"] = {
 		},
 	},
 }
+
+local base_on_attach = vim.lsp.config.eslint.on_attach
+vim.lsp.config("eslint", {
+	on_attach = function(client, bufnr)
+		if not base_on_attach then
+			return
+		end
+
+		base_on_attach(client, bufnr)
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			buffer = bufnr,
+			command = "LspEslintFixAll",
+		})
+	end,
+})
+
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("clangd")
+vim.lsp.enable("eslint")
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -245,6 +262,7 @@ require("nvim-treesitter").setup({
 		enable = false,
 	},
 })
+require("nvim-treesitter").install({ "c", "cpp", "javascript", "lua" })
 
 -- go to preview
 require("goto-preview").setup({
