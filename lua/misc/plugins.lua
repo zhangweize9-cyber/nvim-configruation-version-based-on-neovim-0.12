@@ -51,12 +51,34 @@ for _, plugins_link in ipairs(plugins_url) do
 end
 
 -- catppuccin
+require("catppuccin").setup({
+	flavour = "mocha",
+	lsp_styles = { -- Handles the style of specific lsp hl groups (see `:h lsp-highlight`).
+		virtual_text = {
+			errors = {},
+			hints = {},
+			warnings = {},
+			information = {},
+			ok = {},
+		},
+		underlines = {
+			errors = { "undercurl" },
+			hints = { "undercurl" },
+			warnings = { "undercurl" },
+			information = { "undercurl" },
+			ok = { "undercurl" },
+		},
+		inlay_hints = {
+			background = true,
+		},
+	},
+})
 vim.cmd.colorscheme("catppuccin-nvim")
 
 -- mason.nvim
 require("mason").setup({
 	firewall = {
-		enabled = true,
+		enabled = false,
 	},
 	ui = {
 		icons = {
@@ -94,24 +116,13 @@ vim.lsp.config["lua_ls"] = {
 	},
 }
 
-local base_on_attach = vim.lsp.config.eslint.on_attach
-vim.lsp.config("eslint", {
-	on_attach = function(client, bufnr)
-		if not base_on_attach then
-			return
-		end
-
-		base_on_attach(client, bufnr)
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			buffer = bufnr,
-			command = "LspEslintFixAll",
-		})
-	end,
-})
+vim.lsp.config("ast-grep", {})
 
 vim.lsp.enable("lua_ls")
 vim.lsp.enable("clangd")
-vim.lsp.enable("eslint")
+vim.lsp.enable("ast-grep")
+vim.lsp.enable("cssls")
+vim.lsp.enable("oxlint")
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -142,52 +153,52 @@ cmp.build():pwait()
 cmp.setup({
 	keymap = {
 		preset = "super-tab",
-		["<A-1>"] = {
+		["<leader>1"] = {
 			function(cmp)
 				cmp.accept({ index = 1 })
 			end,
 		},
-		["<A-2>"] = {
+		["<leader>2"] = {
 			function(cmp)
 				cmp.accept({ index = 2 })
 			end,
 		},
-		["<A-3>"] = {
+		["<leader>3"] = {
 			function(cmp)
 				cmp.accept({ index = 3 })
 			end,
 		},
-		["<A-4>"] = {
+		["<leader>4"] = {
 			function(cmp)
 				cmp.accept({ index = 4 })
 			end,
 		},
-		["<A-5>"] = {
+		["<leader>5"] = {
 			function(cmp)
 				cmp.accept({ index = 5 })
 			end,
 		},
-		["<A-6>"] = {
+		["<leader>6"] = {
 			function(cmp)
 				cmp.accept({ index = 6 })
 			end,
 		},
-		["<A-7>"] = {
+		["<leader>7"] = {
 			function(cmp)
 				cmp.accept({ index = 7 })
 			end,
 		},
-		["<A-8>"] = {
+		["<leader>8"] = {
 			function(cmp)
 				cmp.accept({ index = 8 })
 			end,
 		},
-		["<A-9>"] = {
+		["<leader>9"] = {
 			function(cmp)
 				cmp.accept({ index = 9 })
 			end,
 		},
-		["<A-0>"] = {
+		["<leader>0"] = {
 			function(cmp)
 				cmp.accept({ index = 10 })
 			end,
@@ -232,6 +243,10 @@ cmp.setup({
 						highlight = function(ctx)
 							return require("colorful-menu").blink_components_highlight(ctx)
 						end,
+						width = { fill = true, max = 20 },
+					},
+					label_description = {
+						width = { max = 5 },
 					},
 				},
 			},
@@ -243,6 +258,11 @@ cmp.setup({
 require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
+		typescript = { "prettier" },
+		typescriptreact = { "prettier" },
+		javascript = { "prettier" },
+		html = { "prettier" },
+		css = { "prettier" },
 	},
 })
 
@@ -254,15 +274,29 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 -- treesitter
+local filetype = { "c", "cpp", "typescript", "lua", "jsdoc", "html", "css" }
 require("nvim-treesitter").setup({
 	highlight = {
 		enable = true,
+		additional_vim_regex_highlighting = false,
 	},
 	indent = {
 		enable = false,
 	},
 })
-require("nvim-treesitter").install({ "c", "cpp", "javascript", "lua" })
+require("nvim-treesitter").install(filetype)
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = filetype,
+	callback = function()
+		vim.treesitter.start()
+	end,
+})
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "typescriptreact",
+	callback = function()
+		vim.treesitter.start()
+	end,
+})
 
 -- go to preview
 require("goto-preview").setup({
