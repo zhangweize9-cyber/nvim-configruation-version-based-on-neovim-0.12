@@ -153,52 +153,52 @@ cmp.build():pwait()
 cmp.setup({
 	keymap = {
 		preset = "super-tab",
-		["<leader>1"] = {
+		["<a-1>"] = {
 			function(cmp)
 				cmp.accept({ index = 1 })
 			end,
 		},
-		["<leader>2"] = {
+		["<a-2>"] = {
 			function(cmp)
 				cmp.accept({ index = 2 })
 			end,
 		},
-		["<leader>3"] = {
+		["<a-3>"] = {
 			function(cmp)
 				cmp.accept({ index = 3 })
 			end,
 		},
-		["<leader>4"] = {
+		["<a-4>"] = {
 			function(cmp)
 				cmp.accept({ index = 4 })
 			end,
 		},
-		["<leader>5"] = {
+		["<a-5>"] = {
 			function(cmp)
 				cmp.accept({ index = 5 })
 			end,
 		},
-		["<leader>6"] = {
+		["<a-6>"] = {
 			function(cmp)
 				cmp.accept({ index = 6 })
 			end,
 		},
-		["<leader>7"] = {
+		["<a-7>"] = {
 			function(cmp)
 				cmp.accept({ index = 7 })
 			end,
 		},
-		["<leader>8"] = {
+		["<a-8>"] = {
 			function(cmp)
 				cmp.accept({ index = 8 })
 			end,
 		},
-		["<leader>9"] = {
+		["<a-9>"] = {
 			function(cmp)
 				cmp.accept({ index = 9 })
 			end,
 		},
-		["<leader>0"] = {
+		["<a-0>"] = {
 			function(cmp)
 				cmp.accept({ index = 10 })
 			end,
@@ -274,6 +274,12 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 -- treesitter
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+vim.opt.foldenable = true
+
 local filetype = { "c", "cpp", "typescript", "lua", "jsdoc", "html", "css" }
 require("nvim-treesitter").setup({
 	highlight = {
