@@ -64,6 +64,10 @@
       "rev": "3352e998cb8343a4b8d82eca50c74aa17bc61f5e",
       "src": "https://github.com/nvim-neo-tree/neo-tree.nvim"
     },
+    "noice.nvim": {
+      "rev": "7bfd942445fb63089b59f97ca487d605e715f155",
+      "src": "https://github.com/folke/noice.nvim"
+    },
     "nui.nvim": {
       "rev": "10fc361835c856ba4233ef5ea135b919bf3dce97",
       "src": "https://github.com/MunifTanjim/nui.nvim"
@@ -76,6 +80,10 @@
       "rev": "1c0d8f70dbc8827263eedc3cf7021ceba0f68689",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
+    "nvim-notify": {
+      "rev": "8701bece920b38ea289b457f902e2ad184131a5d",
+      "src": "https://github.com/rcarriga/nvim-notify"
+    },
     "nvim-treesitter": {
       "rev": "7b6cc8949f9999c5ed91436cbe24aa5f99c42025",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
@@ -87,6 +95,10 @@
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "render-markdown.nvim": {
+      "rev": "8e8795368391036643b622875a6da6a51bcd33f4",
+      "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
     },
     "telescope.nvim": {
       "rev": "427b576c16792edad01a92b89721d923c19ad60f",
