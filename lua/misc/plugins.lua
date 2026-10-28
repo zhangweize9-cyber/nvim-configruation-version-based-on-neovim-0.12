@@ -47,13 +47,19 @@ local plugins_url = {
 	-- markdown
 	"MeanderingProgrammer/render-markdown.nvim",
 	-- noice
-	"folke/noice.nvim",
+	{ "folke/noice.nvim", enabled = false },
 	-- notify
 	"rcarriga/nvim-notify",
 }
 
 for _, plugins_link in ipairs(plugins_url) do
-	vim.pack.add({ { src = "https://github.com/" .. plugins_link } })
+	if type(plugins_link) == "string" then
+		vim.pack.add({ { src = "https://github.com/" .. plugins_link } })
+	elseif type(plugins_link) == "table" then
+		if plugins_link.enabled then
+			vim.pack.add({ { src = "https://github.com/" .. plugins_link[1] } })
+		end
+	end
 end
 
 -- catppuccin
@@ -432,25 +438,25 @@ require("colorful-winsep").setup({})
 require("render-markdown").setup({})
 
 -- noice.nvim
-require("noice").setup({
-	lsp = {
-		-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
-		override = {
-			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-			["vim.lsp.util.stylize_markdown"] = true,
-			["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
-		},
-	},
-	-- you can enable a preset for easier configuration
-	presets = {
-		bottom_search = true, -- use a classic bottom cmdline for search
-		command_palette = true, -- position the cmdline and popupmenu together
-		long_message_to_split = true, -- long messages will be sent to a split
-		inc_rename = false, -- enables an input dialog for inc-rename.nvim
-		lsp_doc_border = false, -- add a border to hover docs and signature help
-	},
-	-- cmdline = {
-	-- 	enabled = true,
-	-- 	view = "cmdline",
-	-- },
-})
+-- require("noice").setup({
+-- 	lsp = {
+-- 		-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+-- 		override = {
+-- 			["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+-- 			["vim.lsp.util.stylize_markdown"] = true,
+-- 			["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+-- 		},
+-- 	},
+-- 	-- you can enable a preset for easier configuration
+-- 	presets = {
+-- 		bottom_search = true, -- use a classic bottom cmdline for search
+-- 		command_palette = true, -- position the cmdline and popupmenu together
+-- 		long_message_to_split = true, -- long messages will be sent to a split
+-- 		inc_rename = false, -- enables an input dialog for inc-rename.nvim
+-- 		lsp_doc_border = false, -- add a border to hover docs and signature help
+-- 	},
+-- 	-- cmdline = {
+-- 	-- 	enabled = true,
+-- 	-- 	view = "cmdline",
+-- 	-- },
+-- })
